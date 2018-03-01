@@ -26,7 +26,7 @@ function dirmake()
 	chmod -R 777 /webwww
 }
 #检测系统好处，mac下也能兼用 别名？
-dirmake;
+#dirmake;
 apt-get install build-essential
 useradd -d /webwww -g www-data -s /bin/sh www-data
 #安装mysql
@@ -55,14 +55,17 @@ echo '==========安装php7========='
 function php7()
 {
 	wget http://cn2.php.net/distributions/php-7.1.1.tar.bz2
-	tar zxvf php-7.1.1.tar.bz2
-	mv php-7.1.1.tar.bz2 php7
+	#tar jxvf php-7.1.1.tar.bz2
+	mv php-7.1.1 php7
 	cd php7
 	#配置php
-	./configure --prefix=/usr --sysconfdir=/webwww/php --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --enable-mbstring --enable-sockets --enable-pcntl --enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --enable-sysvshm --enable-shmop  --with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/lib --with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-pcntl --enable-ftp --with-curl
+	./configure --with-config-file-scan-dir=/webwww/php --prefix=/etc/php --sysconfdir=/webwww/php --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --enable-mbstring --enable-sockets --enable-pcntl --enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --enable-sysvshm --enable-shmop  --with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/lib --with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-pcntl --enable-ftp --with-curl
+	make
+	make install
 	#从指定服务器下载指定php配置文件
 }
 php7;
+
 
 
 
