@@ -9,6 +9,7 @@ yum install bzip bzip2
 nginx
 #安装之后调试配置
 nginx -t
+nginx -V
 
 wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
 
