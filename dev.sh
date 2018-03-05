@@ -14,14 +14,39 @@ function ftp()
 ftp;
 function svn()
 {
+    yum -y install  subversion
+    #使用的项目目录
+    mkdir -p /application/svndata
+    #指定svn的配置文件信息路径
+    mkdir -p /application/svnpasswd
+    #启动svn服务
+    svnserve -d -r /application/svndata/
 
+#==================================================
+     #搭建之后创建项目
+     svnadmin help create
+     #创建test版本库
+     svnadmin create /application/svndata/test
+
+     #svn的hook功能不启用
+     #hook自动上线代码的功能作用不大
+
+     pkill svnserve
+     #启动svn
+     svnserve -d -r /application/svndata/
 }
 svn;
 function git()
 {
-
+    sudo yum install git
+    #gitlab代码管理
 }
 git;
+
+ssh-keygen -t rsa -C "9448923@qq.com"
+cd /root/.ssh/
+
+#确保有php的环境下安装扩展,版本是7.0以上
 
 
 
