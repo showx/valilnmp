@@ -1,0 +1,36 @@
+# nginx
+nginx:
+    build: ./nginx
+    ports:
+        - "80:80"
+        - "443:443"
+    links:
+        - php7
+    volumes:
+        - /e/data/www:/usr/local/nginx/html
+    restart: always
+
+# php7
+php7:
+    build: ./php7
+    ports:
+        - "9000:9000"
+    links:
+        - mysql
+    volumes:
+        - /e/lnmp/valilnmp/data/php.ini:/usr/local/php/lib/php.ini:ro
+    restart: always
+
+
+# mysql
+mysql:
+    build: ./mysql
+    ports:
+        - "3306:3306"
+    environment:
+        - MYSQL_USER=root
+        - MYSQL_PASSWORD=root
+        - MYSQL_ROOT_PASSWORD=root
+    volumes:
+        - ./mysql/data:/var/lib/mysql
+    restart: always

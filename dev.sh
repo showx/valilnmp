@@ -1,6 +1,7 @@
 #!/bin/bash
 #Author:show
 #主流 redis,memcache,mongodb
+#调试相关:xhprof,xdebug
 #简单扩展可以使用pecl安装
 #ftp,git,svn,samba等搭建
 #ftp环境的搭建
@@ -47,6 +48,27 @@ ssh-keygen -t rsa -C "9448923@qq.com"
 cd /root/.ssh/
 
 #确保有php的环境下安装扩展,版本是7.0以上
+
+#redis
+yum install epel-release
+yum install redis
+redis-server /etc/redis.conf
+#redis-cli测试
+
+
+#memcache memcached
+yum -y install memcached
+vim /etc/sysconfig/memcached
+systemctl enabled memcached
+systemctl start memcached
+
+#mongodb 远程下载源文件
+sudo yum install -y mongodb-org
+
+#安装docker
+yum -y install docker
+
+
 
 
 
