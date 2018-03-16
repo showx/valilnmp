@@ -3,7 +3,7 @@
 #主流 redis,memcache,mongodb
 #调试相关:xhprof,xdebug
 #简单扩展可以使用pecl安装
-#ftp,git,svn,samba等搭建
+#ftp,git,svn,samba,varnish等搭建
 #ftp环境的搭建
 function ftp()
 {

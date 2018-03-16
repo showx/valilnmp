@@ -11,6 +11,7 @@ nginx
 nginx -t
 nginx -V
 
+#todo 把包下载下来，全改用github下载
 wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
 
 #cetnos之后,yum安装没有mysql了,采用mariadb
