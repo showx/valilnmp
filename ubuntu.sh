@@ -67,9 +67,9 @@ function php7()
 	mv php-7.1.1 php7
 	cd php7
 	#配置php
-	# --prefix=/etc/php 放php的路径
+	#  ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
 	#--with-mysql=mysqlnd 一般要干掉的了
-	./configure --with-config-file-scan-dir=/webwww/php \
+	./configure --prefix=/usr/local --with-config-file-path=/webwww/php --with-config-file-scan-dir=/webwww/php \
 	--sysconfdir=/webwww/php --enable-fpm \
 	--with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
