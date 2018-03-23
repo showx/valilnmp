@@ -5,6 +5,8 @@
 #简单扩展可以使用pecl安装
 #ftp,git,svn,samba,varnish等搭建
 #ftp环境的搭建
+#composer的安装
+#图片 imagemagick
 function ftp()
 {
     yum -y install vsftpd
@@ -48,7 +50,7 @@ ssh-keygen -t rsa -C "9448923@qq.com"
 cd /root/.ssh/
 
 #确保有php的环境下安装扩展,版本是7.0以上
-
+yum install vim
 #redis
 yum install epel-release
 yum install redis
@@ -67,6 +69,9 @@ sudo yum install -y mongodb-org
 
 #安装docker
 yum -y install docker
+
+#安装valgrind
+yum install valgrind
 
 
 

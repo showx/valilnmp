@@ -12,7 +12,7 @@ nginx:
 
 # php7
 php7:
-    build: ./php7
+    build: ./php
     ports:
         - "9000:9000"
     links:

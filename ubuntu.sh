@@ -60,6 +60,7 @@ echo '==========安装php7========='
 #http://www.gnu.org/software/libiconv/ https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
 #libevent
 #http://libevent.org/ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+#http://www.gnu.org/software/libtool/
 function php7()
 {
 	wget http://cn2.php.net/distributions/php-7.1.1.tar.bz2
@@ -85,7 +86,7 @@ function php7()
 #https://git.php.net/repository/pecl/database/mysql.git
 php7;
 
-
+#todo 增加版本的切换
 
 
 
