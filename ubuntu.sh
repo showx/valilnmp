@@ -1,34 +1,8 @@
 #!/bin/bash
 #Author:show
 #自动搭建php开发环境shell
-echo '是否进行安装(y/n)';
-read -p "(y/n): " setup
-if [ $setup != 'y' ]; then
-	echo '已退出安装';
-	exit
-fi
-if [ $UID != 0 ]; then
-	echo '用户id为:'$UID'非root，可能有问题';
-fi
-echo '===========开始搭建=========='
-echo '=========创建所需目录========='
-#系统版本
-#SYSCON = "head -n 1 /etc/issue";
-#echo $SYSCON
-#echo $?
-function dirmake()
-{
-	mkdir /webwww
-	mkdir -p /webwww/log/nginx/
-	mkdir /webwww/run/
-	mkdir /webwww/lock/
-	mkdir -p /webwww/tmp/nginx/client_body/
-	chmod -R 777 /webwww
-}
-#检测系统好处，mac下也能兼用 别名？
-#dirmake;
+
 apt-get install build-essential
-useradd -d /webwww -g www-data -s /bin/sh www-data
 #安装mysql
 echo '===========安装mysql========'
 apt-get install mysql-server mysql-client
