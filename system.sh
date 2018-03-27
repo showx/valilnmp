@@ -16,10 +16,8 @@ fi
 #useradd -d /webwww -g www-data -s /bin/sh www-data
 user=www-data
 group=www-data
-$exist_user=`egrep "^$group" /etc/group >& /dev/null`
-if [ $exist_user -ne 0 ]
-    echo $?
-    echo "存在www-data用户"
+egrep "^$group" /etc/group >& /dev/null
+if [ $? -ne 0 ]
 then
     groupadd $group
     useradd -g $user $group
@@ -39,6 +37,7 @@ if [ ! -d "/webwww/log/nginx/" ];then
 fi
 
 system="3";
+command="";
 system1=`lsb_release -a |grep Ubuntu`
 system2=`lsb_release -a |grep Centos`
 #echo $system1;
@@ -46,11 +45,13 @@ if [[ -n "$system1" ]]
 then
     echo "Ubuntu";
     system="1";
+    command="apt-get"
 else
     if [[ -n "$system2" ]]
     then
         echo "Centos";
         system="2";
+        command="yum"
      fi
 fi
 

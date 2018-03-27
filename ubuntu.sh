@@ -3,11 +3,10 @@
 #自动搭建php开发环境shell
 
 apt-get install build-essential
+apt-get install libpcre3 libpcre3-dev zlib1g-dev
 #安装mysql
 echo '===========安装mysql========'
 apt-get install mysql-server mysql-client
-#nginx配置所需库
-apt-get install libpcre3 libpcre3-dev zlib1g-dev
 echo '===========安装nginx========'
 #配置nginx
 function nginx()
