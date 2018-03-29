@@ -31,3 +31,6 @@ ubuntu与centos操作系统为主
 
 #调试开发
 结合xhprof作用php基层调试
+
+#联系本人
+如果有建议或提交bug,请联系邮箱mailto:9448923#qq.com
