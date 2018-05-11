@@ -36,11 +36,12 @@ if [ ! -d "/webwww/log/nginx/" ];then
 	mkdir -p /webwww/tmp/nginx/client_body/
 	chmod -R 777 /webwww
 fi
-
-system="3";
+#默认为centos
+system="2";
 sys_command="";
+#前提要有lsb_release
 system1=`lsb_release -a |grep Ubuntu`
-system2=`lsb_release -a |grep Centos`
+system2=`lsb_release -a |grep Cent`
 #echo $system1;
 if [[ -n "$system1" ]]
 then
@@ -74,7 +75,7 @@ fi
 #grant all privileges on *.* to root@'%'identified by 'root';
 
 
-#echo $sys_command;
+echo $sys_command;
 #echo $($sys_command -v);
 
 #======安装相关依赖库=================
