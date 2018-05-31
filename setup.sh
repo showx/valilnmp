@@ -86,9 +86,15 @@ echo $($sys_command install libpcre3 libpcre3-dev zlib1g-dev);
 echo $($sys_command install  -y gcc gcc-c++ openssl openssl-devel cyrus-sasl-md5)
 echo $($sys_command install -y gcc gcc-c++ libxml2 libxml2-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel  zlib zlib-devel glibc glibc-devel glib2 glib2-devel)
 echo $($sys_command install -y bzip bzip2)
+echo $($sys_command install -y wget)
+echo $($sys_command install -y libcurl-devel.x86_64)
 
 #libiconv等包最好自行编译安装
-#http://www.gnu.org/software/libiconv/ https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+#http://www.gnu.org/software/libiconv/ https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz /usr/local/lib
+#tar zxvf libiconv-1.15.tar.gz
+#cd libiconv-1.15
+#./configure
+#make && make install
 #libevent
 #http://libevent.org/ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 #http://www.gnu.org/software/libtool/
@@ -97,6 +103,9 @@ echo '===========安装nginx========'
 #配置nginx
 function nginx()
 {
+
+
+
 	#下载nginx
 	wget http://nginx.org/download/nginx-1.10.3.tar.gz
 	tar zxvf nginx-1.10.3.tar.gz
@@ -116,6 +125,7 @@ function nginx()
     #nginx -t
     #nginx -V
 }
+#判断有没nginx先才安装
 #nginx;
 
 #自动下载配置文件并替换
@@ -123,15 +133,15 @@ echo '==========安装php7========='
 #todo增加常用版本的安装
 function php7()
 {
-    #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
-	wget http://cn2.php.net/distributions/php-7.1.1.tar.bz2
+    wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
+	#wget http://cn2.php.net/distributions/php-7.1.1.tar.bz2
 	#tar jxvf php-7.1.1.tar.bz2
 	mv php-7.1.1 php7
 	cd php7
 	#配置php
 	#  ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
 	#--with-mysql=mysqlnd 一般要干掉的了
-	./configure --prefix=/usr/local --with-config-file-path=/webwww/php --with-config-file-scan-dir=/webwww/php \
+	./configure --prefix=/webwww/php/72/ --with-config-file-path=/webwww/php/ --with-config-file-scan-dir=/webwww/php \
 	--sysconfdir=/webwww/php --enable-fpm \
 	--with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
