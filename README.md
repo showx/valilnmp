@@ -17,14 +17,14 @@ ubuntu与centos操作系统为主
 
 # 整体架构
 ### 文件目录
-`
+```
 ├── conf_file    服务相关配置文件
 ├── extends      
 │   ├── php_ext  php扩展
 │   ├── servergather   常用服务器监控
 ├── files  服务安装文件
 └── other  vagrant和docker等第三方使用
-`
+```
 
 ### 使用目录 
 /webwww/   为核心开发目录
