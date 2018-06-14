@@ -36,3 +36,6 @@ ubuntu与centos操作系统为主
 
 # 联系本人
 如果有建议或提交bug,请联系邮箱mailto:9448923#qq.com
+
+### 安装文件
+迁移至 https://github.com/showx/valilnmp_setup_file
