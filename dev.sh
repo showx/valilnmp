@@ -12,7 +12,15 @@ function ftp()
     yum -y install vsftpd
     chkconfig vsftpd on
     #创建密码，pam虚拟用户
+    yum  -y install libdb-utils  libdb-devel.x86_64
+    #vuser_passwd.txt ftproot NEPMFUKwerQzfQE2DtbVcRtR
     db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db
+    chmod  700   /etc/vsftpd/vuser_passwd.db
+    #/etc/pam.d/vsftpd
+    #配置PAM认证文件，/etc/pam.d/vsftpd加入： sed替换
+    #auth required pam_userdb.so db=/etc/vsftpd/vuser_passwd
+    #account required pam_userdb.so db=/etc/vsftpd/vuser_passwd
+    systemctl restart vsftpd
 }
 ftp;
 function svn()
@@ -42,16 +50,26 @@ svn;
 function git()
 {
     sudo yum install git
+    wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.16.3.tar.gz
+    ./configure
+    make prefix=/usr/local all
+    # Install into /usr/local/bin
+    sudo make prefix=/usr/local install
     #gitlab代码管理
+    #不使用一键安装包来安装gitlab
 }
 git;
 
+#与服务器联通的key
 ssh-keygen -t rsa -C "9448923@qq.com"
 cd /root/.ssh/
 
 #确保有php的环境下安装扩展,版本是7.0以上
 yum install vim
-#redis
+
+
+
+#redis  使用epel-release的方法
 yum install epel-release
 yum install redis
 redis-server /etc/redis.conf
@@ -73,8 +91,53 @@ yum -y install docker
 #安装valgrind
 yum install valgrind
 
+#openresty(nginx+lua)
+
+#增加zabbix监控
+
+rpm -i http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+#服务端
+yum install zabbix-server-mysql zabbix-web-mysql
+
+#客户端
+yum install zabbix-agent
+
+#mysql zabbix user
+#create database zabbix character set utf8 collate utf8_bin;
+#grant all privileges on zabbix.* to zabbix@localhost identified by 'password';
 
 
+zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix
+
+#启动
+#systemctl start zabbix-server
+systemctl restart zabbix-server zabbix-agent
+# systemctl enable zabbix-server zabbix-agent
+
+#conf文件  /etc/zabbix/zabbix_server.conf
+#          /etc/zabbix/zabbix_agentd.conf
+
+
+#安装redis和swoole的php扩展就足够用的了
+#php redis
+pecl install redis
+
+#安装php swoole扩展
+#注：http2和hiredis要安装有
+curl -o ./tmp/swoole.tar.gz https://github.com/swoole/swoole-src/archive/master.tar.gz -L && \
+tar zxvf ./tmp/swoole.tar.gz && \
+mv swoole-src* swoole-src && \
+cd swoole-src && \
+phpize && \
+./configure \
+--enable-coroutine \
+--enable-openssl  \
+--enable-http2  \
+--enable-async-redis \
+--enable-sockets \
+--enable-mysqlnd && \
+make clean && make && sudo make install
 
 
 

@@ -74,6 +74,7 @@ fi
 #set password for 'root'@'localhost'=password('root');
 #grant all privileges on *.* to root@'%'identified by 'root';
 
+yum install -y redhat-lsb
 
 echo $sys_command;
 #echo $($sys_command -v);
@@ -103,11 +104,9 @@ echo '===========安装nginx========'
 #配置nginx
 function nginx()
 {
-
-
-
 	#下载nginx
-	wget http://nginx.org/download/nginx-1.10.3.tar.gz
+	#wget http://nginx.org/download/nginx-1.10.3.tar.gz
+	wget http://nginx.org/download/nginx-1.13.12.tar.gz
 	tar zxvf nginx-1.10.3.tar.gz
 	mv nginx-1.10.3 nginx
 	cd nginx
@@ -133,25 +132,30 @@ echo '==========安装php7========='
 #todo增加常用版本的安装
 function php7()
 {
-    wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
-	#wget http://cn2.php.net/distributions/php-7.1.1.tar.bz2
-	#tar jxvf php-7.1.1.tar.bz2
-	mv php-7.1.1 php7
+    #从指定服务器下载指定php配置文件
+    #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
+	#tar jxvf php-7.2.2.tar.bz2
+    php_version='7.2.6';
+	wget http://cn2.php.net/distributions/php-$php_version.tar.gz
+    tar zxvf php-$php_version.tar.gz
+	mv php-$php_version php7
 	cd php7
 	#配置php
-	#  ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
-	#--with-mysql=mysqlnd 一般要干掉的了
-	./configure --prefix=/webwww/php/72/ --with-config-file-path=/webwww/php/ --with-config-file-scan-dir=/webwww/php \
-	--sysconfdir=/webwww/php --enable-fpm \
-	--with-fpm-user=www-data --with-fpm-group=www-data \
+	# --ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
+	# --with-mysql=mysqlnd 一般要干掉的了
+	# --sysconfdir=/webwww/php sysconfdir不用
+	./configure --prefix=/webwww/php/$php_version/ \
+	--with-config-file-path=/webwww/php/conf/ \
+	--with-config-file-scan-dir=/webwww/php/conf.d/ \
+	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
 	--enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
-	--enable-sysvshm --enable-shmop  \
+	--enable-sysvshm --enable-shmop --with-gettext  \
 	--with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/local/lib \
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
 	make
 	make install
-	#从指定服务器下载指定php配置文件
+
 }
 #要兼容旧程序的办法
 #https://git.php.net/repository/pecl/database/mysql.git
