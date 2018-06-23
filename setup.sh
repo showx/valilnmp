@@ -149,7 +149,7 @@ function php7()
 	--with-config-file-scan-dir=/webwww/php/conf.d/ \
 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
-	--enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd \
+	--enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with_pdo_pgsql \
 	--enable-sysvshm --enable-shmop --with-gettext  \
 	--with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/local/lib \
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
