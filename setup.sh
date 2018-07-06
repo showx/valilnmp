@@ -28,6 +28,8 @@ echo '===========开始搭建=========='
 echo '=========创建所需目录========='
 if [ ! -d "/webwww/" ];then
     mkdir /webwww
+    mkdir /show
+    mkdir /show/node_module
 fi
 if [ ! -d "/webwww/log/nginx/" ];then
     mkdir -p /webwww/log/nginx/
@@ -104,6 +106,12 @@ echo '===========安装nginx========'
 #配置nginx
 function nginx()
 {
+
+    #增加nginx module文件夹
+    #lua开发模块，解压，放在/show/nginx_module
+    #https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
+    #https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
+
 	#下载nginx
 	#wget http://nginx.org/download/nginx-1.10.3.tar.gz
 	wget http://nginx.org/download/nginx-1.13.12.tar.gz
@@ -111,10 +119,22 @@ function nginx()
 	mv nginx-1.10.3 nginx
 	cd nginx
 	./configure --prefix=/usr --sbin-path=/usr/sbin \
-	--conf-path=/webwww/nginx/nginx.conf --pid-path=/webwww/run/nginx.pid --lock-path=/webwww/lock/nginx.lock \
+	--user=www-data --group=www-data \
+	--conf-path=/webwww/nginx/nginx.conf \
+	--pid-path=/webwww/run/nginx.pid --lock-path=/webwww/lock/nginx.lock \
 	--error-log-path=/webwww/log/nginx/main_error.log  \
+	--http-log-path=/webwww/log/nginx/main_access.log  \
 	--http-client-body-temp-path=/webwww/tmp/nginx/client_body/ --http-proxy-temp-path=/webwww/tmp/nginx/proxy/ --http-fastcgi-temp-path=/webwww/tmp/nginx/fcgi/ \
-	--with-http_stub_status_module
+	--with-pcre-jit \
+	--with-ld-opt="-Wl,-rpath,/usr/local/lib" \
+	--with-http_stub_status_module \
+    --with-http_realip_module \
+    --with-http_ssl_module \
+    --add-module=/show/nginx_module/lua-nginx-module-0.10.13 \
+    --add-module=/show/nginx_module/ngx_devel_kit-0.3.0
+
+    #	--with-pcre=$pcre_dir \
+
 	make
 	make install
 	cd ../
@@ -149,7 +169,7 @@ function php7()
 	--with-config-file-scan-dir=/webwww/php/conf.d/ \
 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
-	--enable-pdo --enable-mysqlnd --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with_pdo_pgsql \
+	--enable-pdo --enable-mysqlnd --enable-pgsql --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with_pdo_pgsql \
 	--enable-sysvshm --enable-shmop --with-gettext  \
 	--with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/local/lib \
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
