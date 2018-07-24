@@ -41,6 +41,11 @@ fi
 #默认为centos
 system="2";
 sys_command="";
+
+#增加判断 后面改为which apt-get
+apt-get install lsb-release
+yum install redhat-lsb.x86_64
+
 #前提要有lsb_release
 system1=`lsb_release -a |grep Ubuntu`
 system2=`lsb_release -a |grep Cent`
@@ -181,11 +186,20 @@ function php7()
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
 	make
 	make install
-
+    cd ../
 }
 echo '是否安装php7';
 read -p "input (y/n): " php7_y
 if [ $php7_y == 'y' ]; then
 	php7
 	echo '成功安装完php7';
+fi
+
+if [[ $nginx_y ]] && [[ $php7_y ]];
+then
+    echo '生成配置文件';
+    cp -rf ./conf_file/nginxconf/* /webwww/nginx/*
+    cp -rf ./conf_file/php/php.ini  /webwww/php/conf/php.ini
+    cp -rf ./conf_file/php/php-cli.ini  /webwww/php/conf/php-cli.ini
+    cp -rf ./conf_file/php/php-fpm.ini  /webwww/php/php-fpm.ini
 fi
