@@ -36,6 +36,7 @@ if [ ! -d "/webwww/log/nginx/" ];then
     mkdir /webwww/run/
 	mkdir /webwww/lock/
 	mkdir -p /webwww/tmp/nginx/client_body/
+	mkdir -p /webwww/php/conf
 	chmod -R 777 /webwww
 fi
 #默认为centos
@@ -198,8 +199,8 @@ fi
 if [[ $nginx_y ]] && [[ $php7_y ]];
 then
     echo '生成配置文件';
-    cp -rf ./conf_file/nginxconf/* /webwww/nginx/*
-    cp -rf ./conf_file/php/php.ini  /webwww/php/conf/php.ini
-    cp -rf ./conf_file/php/php-cli.ini  /webwww/php/conf/php-cli.ini
-    cp -rf ./conf_file/php/php-fpm.ini  /webwww/php/php-fpm.ini
+    cp -rf ./conf_file/nginxconf/ /webwww/nginx/
+    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
+    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
+    cp -rf ./conf_file/phpconf/php-fpm.ini  /webwww/php/php-fpm.ini
 fi
