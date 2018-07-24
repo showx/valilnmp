@@ -72,10 +72,6 @@ else
     echo 'u';
 fi
 
-#mysql -u root
-#set password for 'root'@'localhost'=password('root');
-#grant all privileges on *.* to root@'%'identified by 'root';
-
 yum install -y redhat-lsb
 
 echo $sys_command;
@@ -90,14 +86,17 @@ echo $($sys_command install  -y gcc gcc-c++ openssl openssl-devel cyrus-sasl-md5
 echo $($sys_command install -y gcc gcc-c++ libxml2 libxml2-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel  zlib zlib-devel glibc glibc-devel glib2 glib2-devel)
 echo $($sys_command install -y bzip bzip2)
 echo $($sys_command install -y wget)
-echo $($sys_command install -y libcurl-devel.x86_64)
+echo $($sys_command install -y libcurl-devel.x86_64  postgresql-devel)
 
 #libiconv等包最好自行编译安装
 #http://www.gnu.org/software/libiconv/ https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz /usr/local/lib
+#加上common function处理
+#wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
 #tar zxvf libiconv-1.15.tar.gz
 #cd libiconv-1.15
 #./configure
 #make && make install
+#cd ../
 #libevent
 #http://libevent.org/ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 #http://www.gnu.org/software/libtool/
@@ -115,7 +114,7 @@ function nginx()
 	#下载nginx
 	#wget http://nginx.org/download/nginx-1.10.3.tar.gz
 	wget http://nginx.org/download/nginx-1.13.12.tar.gz
-	tar zxvf nginx-1.10.3.tar.gz
+	tar zxvf nginx-1.13.12.tar.gz
 	mv nginx-1.10.3 nginx
 	cd nginx
 	./configure --prefix=/usr --sbin-path=/usr/sbin \
@@ -145,7 +144,12 @@ function nginx()
     #nginx -V
 }
 #判断有没nginx先才安装
-#nginx;
+echo '是否安装nginx';
+read -p "input (y/n): " nginx_y
+if [ $nginx_y == 'y' ]; then
+	nginx
+	echo '成功安装完nginx';
+fi
 
 #自动下载配置文件并替换
 echo '==========安装php7========='
@@ -160,6 +164,8 @@ function php7()
     tar zxvf php-$php_version.tar.gz
 	mv php-$php_version php7
 	cd php7
+	#要兼容旧程序的办法
+    #https://git.php.net/repository/pecl/database/mysql.git
 	#配置php
 	# --ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
 	# --with-mysql=mysqlnd 一般要干掉的了
@@ -169,7 +175,7 @@ function php7()
 	--with-config-file-scan-dir=/webwww/php/conf.d/ \
 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
-	--enable-pdo --enable-mysqlnd --enable-pgsql --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with_pdo_pgsql \
+	--enable-pdo --enable-mysqlnd --enable-pgsql --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-pdo-pgsql \
 	--enable-sysvshm --enable-shmop --with-gettext  \
 	--with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/local/lib \
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
@@ -177,6 +183,9 @@ function php7()
 	make install
 
 }
-#要兼容旧程序的办法
-#https://git.php.net/repository/pecl/database/mysql.git
-#php7;
+echo '是否安装php7';
+read -p "input (y/n): " php7_y
+if [ $php7_y == 'y' ]; then
+	php7
+	echo '成功安装完php7';
+fi

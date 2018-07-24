@@ -139,5 +139,6 @@ phpize && \
 --enable-mysqlnd && \
 make clean && make && sudo make install
 
-
+#安装java环境 jdk
+#rpm -ivh jdk-8u171-linux-x64.rpm
 

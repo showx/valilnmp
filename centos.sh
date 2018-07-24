@@ -10,6 +10,10 @@ wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum install mysql-community-server
 
+#mysql -u root
+#set password for 'root'@'localhost'=password('root');
+#grant all privileges on *.* to root@'%'identified by 'root';
+
 #mysql初始化权限命令：
 #set password for 'root'@'localhost'=password('root');
 #grant all privileges on *.* to root@'%'identified by 'root';
