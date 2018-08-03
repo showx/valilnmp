@@ -53,6 +53,23 @@ case $1 in
 
         echo "切换版本成功";
     ;;
+    lsync)
+        echo "启动lsync服务";
+        lsync_conf=/etc/lsyncd.conf
+        /usr/local/bin/lsyncd $lsync_conf
+    ;;
+    rsync)
+        echo "rsync服务启动";
+        service rsyncd restart
+    ;;
+    zagent)
+        echo "zabbix-agent启动";
+        systemctl restart zabbix-agent
+    ;;
+    zserver)
+        echo "zabbix-server启动";
+        systemctl restart zabbix-server
+    ;;
     *)
         echo "没有指示";
     ;;
