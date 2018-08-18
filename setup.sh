@@ -71,10 +71,10 @@ echo "$system";
 #处理每个系统不同的模块
 if [[ "$system" -ge "3" ]]
 then
-    ./centos.sh
+    system/centos.sh
     echo 'c';
 else
-    ./ubuntu.sh
+    system/ubuntu.sh
     echo 'u';
 fi
 
