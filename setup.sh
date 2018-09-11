@@ -44,8 +44,8 @@ system="2";
 sys_command="";
 
 #增加判断 后面改为which apt-get
-apt-get install lsb-release
-yum install redhat-lsb.x86_64
+apt-get install -y lsb-release
+yum install -y redhat-lsb redhat-lsb.x86_64
 
 #前提要有lsb_release
 system1=`lsb_release -a |grep Ubuntu`
@@ -78,7 +78,7 @@ else
     echo 'u';
 fi
 
-yum install -y redhat-lsb
+
 
 echo $sys_command;
 #echo $($sys_command -v);
@@ -88,21 +88,23 @@ echo "正在安装支持库"
 echo $($sys_command install build-essential);
 echo $($sys_command install libpcre3 libpcre3-dev zlib1g-dev);
 
-echo $($sys_command install  -y gcc gcc-c++ openssl openssl-devel cyrus-sasl-md5)
-echo $($sys_command install -y gcc gcc-c++ libxml2 libxml2-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel  zlib zlib-devel glibc glibc-devel glib2 glib2-devel)
-echo $($sys_command install -y bzip bzip2)
-echo $($sys_command install -y wget)
+echo $($sys_command install -y cmake gcc gcc-c++ cyrus-sasl-md5)
+echo $($sys_command install -y libxml2 libxml2-devel \
+autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel \
+ zlib zlib-devel glibc glibc-devel glib2 glib2-devel )
+echo $($sys_command install -y bzip bzip2 ncurses ncurses-devel monit.x86_64 git unzip rsync nc)
+echo $($sys_command install -y wget curl curl-devel openssl openssl-devel libevent libevent-devel)
+echo $($sys_command install -y lrzsz ntpdate libmcrypt libmcrypt-devel mcrypt mhash)
 echo $($sys_command install -y libcurl-devel.x86_64  postgresql-devel)
 
 #libiconv等包最好自行编译安装
-#http://www.gnu.org/software/libiconv/ https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz /usr/local/lib
-#加上common function处理
+#http://www.gnu.org/software/libiconv/      /usr/local/lib
 #wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
 #tar zxvf libiconv-1.15.tar.gz
 #cd libiconv-1.15
 #./configure
 #make && make install
-#cd ../
+
 #libevent
 #http://libevent.org/ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 #http://www.gnu.org/software/libtool/
@@ -160,12 +162,12 @@ fi
 #自动下载配置文件并替换
 echo '==========安装php7========='
 #todo增加常用版本的安装
+php_version='7.2.6';
 function php7()
 {
     #从指定服务器下载指定php配置文件
     #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
 	#tar jxvf php-7.2.2.tar.bz2
-    php_version='7.2.6';
 	wget http://cn2.php.net/distributions/php-$php_version.tar.gz
     tar zxvf php-$php_version.tar.gz
 	mv php-$php_version php7
@@ -174,14 +176,13 @@ function php7()
     #https://git.php.net/repository/pecl/database/mysql.git
 	#配置php
 	# --ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
-	# --with-mysql=mysqlnd 一般要干掉的了
 	# --sysconfdir=/webwww/php sysconfdir不用
-	./configure --prefix=/webwww/php/$php_version/ \
+	./configure --prefix=/webwww/php/726/ \
 	--with-config-file-path=/webwww/php/conf/ \
 	--with-config-file-scan-dir=/webwww/php/conf.d/ \
 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
 	--enable-mbstring --enable-sockets --enable-pcntl --with-curl \
-	--enable-pdo --enable-mysqlnd --enable-pgsql --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-pdo-pgsql \
+	--enable-pdo --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-pgsql --with-pdo-pgsql \
 	--enable-sysvshm --enable-shmop --with-gettext  \
 	--with-jpeg-dir=/usr --with-freetype-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-iconv=/usr/local/lib \
 	--with-gd --with-openssl --enable-opcache=no --enable-zip --enable-bcmath --enable-ftp
@@ -200,7 +201,7 @@ if [[ $nginx_y ]] && [[ $php7_y ]];
 then
     echo '生成配置文件';
     cp -rf ./conf_file/nginxconf/ /webwww/nginx/
-    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
-    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
-    cp -rf ./conf_file/phpconf/php-fpm.ini  /webwww/php/php-fpm.ini
+    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/$php_version/conf/php.ini
+    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/$php_version/php/conf/php-cli.ini
+    cp -rf ./conf_file/phpconf/php-fpm.ini  /webwww/$php_version/php/etc/php-fpm.ini
 fi
