@@ -116,11 +116,11 @@ function nginx()
 
     #增加nginx module文件夹
     #lua开发模块，解压，放在/show/nginx_module
-    if [ -f /show/nginx_module/lua-nginx-module-0.10.13 ];then
+    if [ -d /show/nginx_module/lua-nginx-module-0.10.13 ];then
         wget https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
         tar zxvf v0.10.13.tar.gz -C /show/nginx_module/lua-nginx-module-0.10.13
     fi
-    if [ -f /show/nginx_module/ngx_devel_kit-0.3.0 ];then
+    if [ -d /show/nginx_module/ngx_devel_kit-0.3.0 ];then
         wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
         tar zxvf v0.3.0.tar.gz -C /show/nginx_module/ngx_devel_kit-0.3.0
     fi
