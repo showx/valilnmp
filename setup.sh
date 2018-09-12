@@ -116,14 +116,20 @@ function nginx()
 
     #增加nginx module文件夹
     #lua开发模块，解压，放在/show/nginx_module
-    #https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
-    #https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
+    if [ -f /show/nginx_module/lua-nginx-module-0.10.13 ];then
+        wget https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
+        tar zxvf v0.10.13.tar.gz -C /show/nginx_module/lua-nginx-module-0.10.13
+    fi
+    if [ -f /show/nginx_module/ngx_devel_kit-0.3.0 ];then
+        wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
+        tar zxvf v0.3.0.tar.gz -C /show/nginx_module/ngx_devel_kit-0.3.0
+    fi
 
 	#下载nginx
 	#wget http://nginx.org/download/nginx-1.10.3.tar.gz
 	wget http://nginx.org/download/nginx-1.13.12.tar.gz
 	tar zxvf nginx-1.13.12.tar.gz
-	mv nginx-1.10.3 nginx
+	mv nginx-1.13.12 nginx
 	cd nginx
 	./configure --prefix=/usr --sbin-path=/usr/sbin \
 	--user=www-data --group=www-data \
