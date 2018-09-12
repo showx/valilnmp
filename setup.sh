@@ -150,7 +150,7 @@ function nginx()
 	#nginx
     #安装之后调试配置
     #nginx -t
-    #nginx -V
+    nginx -V
 }
 #判断有没nginx先才安装
 echo '是否安装nginx';
@@ -163,7 +163,8 @@ fi
 #自动下载配置文件并替换
 echo '==========安装php7========='
 #todo增加常用版本的安装
-php_version='7.2.6';
+php_down_version='7.2.6';
+php_version='726';
 function php7()
 {
 
@@ -179,14 +180,14 @@ function php7()
     fi
 
     #从指定服务器下载指定php配置文件
-	wget http://cn2.php.net/distributions/php-$php_version.tar.gz
-    tar zxvf php-$php_version.tar.gz
-	mv php-$php_version php7
+	wget http://cn2.php.net/distributions/php-$php_down_version.tar.gz
+    tar zxvf php-$php_down_version.tar.gz
+	mv php-$php_down_version php7
 	cd php7
 	#配置php
 	# --ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
 	# --sysconfdir=/webwww/php sysconfdir不用
-	./configure --prefix=/webwww/php/726/ \
+	./configure --prefix=/webwww/php/$php_version/ \
 	--with-config-file-path=/webwww/php/conf/ \
 	--with-config-file-scan-dir=/webwww/php/conf.d/ \
 	--enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data \
