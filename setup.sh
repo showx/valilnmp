@@ -30,6 +30,8 @@ if [ ! -d "/webwww/" ];then
     mkdir /webwww
     mkdir /show
     mkdir /show/node_module
+    #安装文件都放这
+    mkdir /show/install
 fi
 if [ ! -d "/webwww/log/nginx/" ];then
     mkdir -p /webwww/log/nginx/
@@ -168,21 +170,19 @@ function php7()
     #libiconv等包最好自行编译安装
     #http://www.gnu.org/software/libiconv/      /usr/local/lib
     wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-    tar zxvf libiconv-1.15.tar.gz
-    cd libiconv-1.15
-    ./configure
-    make && make install
-    cd ../
+    tar zxvf libiconv-1.15.tar.gz -C /show/install/
+    if [ ! -d /show/install/libiconv-1.15 ];then
+        cd libiconv-1.15
+        ./configure
+        make && make install
+        cd ../
+    fi
 
     #从指定服务器下载指定php配置文件
-    #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
-	#tar jxvf php-7.2.2.tar.bz2
 	wget http://cn2.php.net/distributions/php-$php_version.tar.gz
     tar zxvf php-$php_version.tar.gz
 	mv php-$php_version php7
 	cd php7
-	#要兼容旧程序的办法
-    #https://git.php.net/repository/pecl/database/mysql.git
 	#配置php
 	# --ac_default_prefix=/usr/local --prefix=/webwww/php/local 放php的路径
 	# --sysconfdir=/webwww/php sysconfdir不用
@@ -205,8 +205,9 @@ if [ $php7_y == 'y' ]; then
 	php7
 	echo '成功安装完php7';
 fi
-
-if [[ $nginx_y ]] && [[ $php7_y ]];
+echo '是否复制配置文件';
+read -p "input (y/n): " conf_y
+if [ $conf_y =='y' ];
 then
     echo '生成配置文件';
     cp -rf ./conf_file/nginxconf/ /webwww/nginx/
