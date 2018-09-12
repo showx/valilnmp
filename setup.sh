@@ -97,13 +97,6 @@ echo $($sys_command install -y wget curl curl-devel openssl openssl-devel libeve
 echo $($sys_command install -y lrzsz ntpdate libmcrypt libmcrypt-devel mcrypt mhash)
 echo $($sys_command install -y libcurl-devel.x86_64  postgresql-devel)
 
-#libiconv等包最好自行编译安装
-#http://www.gnu.org/software/libiconv/      /usr/local/lib
-#wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-#tar zxvf libiconv-1.15.tar.gz
-#cd libiconv-1.15
-#./configure
-#make && make install
 
 #libevent
 #http://libevent.org/ https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
@@ -118,11 +111,11 @@ function nginx()
     #lua开发模块，解压，放在/show/nginx_module
     if [ ! -d /show/nginx_module/lua-nginx-module-0.10.13 ];then
         wget https://github.com/openresty/lua-nginx-module/archive/v0.10.13.tar.gz
-        tar zxvf v0.10.13.tar.gz -C /show/nginx_module/lua-nginx-module-0.10.13
+        tar zxvf v0.10.13.tar.gz -C /show/nginx_module/
     fi
     if [ ! -d /show/nginx_module/ngx_devel_kit-0.3.0 ];then
         wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
-        tar zxvf v0.3.0.tar.gz -C /show/nginx_module/ngx_devel_kit-0.3.0
+        tar zxvf v0.3.0.tar.gz -C /show/nginx_module/
     fi
 
 	#下载nginx
@@ -171,6 +164,16 @@ echo '==========安装php7========='
 php_version='7.2.6';
 function php7()
 {
+
+    #libiconv等包最好自行编译安装
+    #http://www.gnu.org/software/libiconv/      /usr/local/lib
+    wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+    tar zxvf libiconv-1.15.tar.gz
+    cd libiconv-1.15
+    ./configure
+    cd ../
+    make && make install
+
     #从指定服务器下载指定php配置文件
     #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
 	#tar jxvf php-7.2.2.tar.bz2
