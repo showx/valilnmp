@@ -171,8 +171,8 @@ function php7()
     tar zxvf libiconv-1.15.tar.gz
     cd libiconv-1.15
     ./configure
-    cd ../
     make && make install
+    cd ../
 
     #从指定服务器下载指定php配置文件
     #wget http://cn2.php.net/distributions/php-7.2.2.tar.bz2
