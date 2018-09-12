@@ -198,6 +198,8 @@ function php7()
 	make
 	make install
     cd ../
+
+    #安装完验证一下php
 }
 echo '是否安装php7';
 read -p "input (y/n): " php7_y
@@ -207,11 +209,10 @@ if [ $php7_y == 'y' ]; then
 fi
 echo '是否复制配置文件';
 read -p "input (y/n): " conf_y
-if [ $conf_y =='y' ];
-then
+if [ $conf_y == 'y' ];then
     echo '生成配置文件';
     cp -rf ./conf_file/nginxconf/ /webwww/nginx/
     cp -rf ./conf_file/phpconf/php.ini  /webwww/php/$php_version/conf/php.ini
-    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/$php_version/php/conf/php-cli.ini
-    cp -rf ./conf_file/phpconf/php-fpm.ini  /webwww/$php_version/php/etc/php-fpm.ini
+    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/$php_version/conf/php-cli.ini
+    cp -rf ./conf_file/phpconf/php-fpm.conf  /webwww/php/$php_version/etc/php-fpm.conf
 fi
