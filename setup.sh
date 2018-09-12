@@ -97,7 +97,7 @@ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel \
 echo $($sys_command install -y bzip bzip2 ncurses ncurses-devel monit.x86_64 git unzip rsync nc)
 echo $($sys_command install -y wget curl curl-devel openssl openssl-devel libevent libevent-devel)
 echo $($sys_command install -y lrzsz ntpdate libmcrypt libmcrypt-devel mcrypt mhash)
-echo $($sys_command install -y libcurl-devel.x86_64  postgresql-devel)
+echo $($sys_command install -y libcurl-devel.x86_64  postgresql-devel lua-devel)
 
 
 #libevent
@@ -201,6 +201,8 @@ function php7()
     cd ../
 
     #安装完验证一下php
+    ./service/service.sh php $php_version
+    php -v
 }
 echo '是否安装php7';
 read -p "input (y/n): " php7_y
