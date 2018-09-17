@@ -199,7 +199,7 @@ function php7()
 	make
 	make install
     cd ../
-
+    mkdir -p /webwww/php/var/run/
     #安装完验证一下php
     ./service/service.sh php $php_version
     php -v
