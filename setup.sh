@@ -216,7 +216,8 @@ read -p "input (y/n): " conf_y
 if [ $conf_y == 'y' ];then
     echo '生成配置文件';
     cp -rf ./conf_file/nginxconf/ /webwww/nginx/
-    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/$php_version/conf/php.ini
-    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/$php_version/conf/php-cli.ini
+    #总体配置不区分版本
+    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
+    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
     cp -rf ./conf_file/phpconf/php-fpm.conf  /webwww/php/$php_version/etc/php-fpm.conf
 fi

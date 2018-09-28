@@ -6,6 +6,9 @@
 #yum install mariadb-server mariadb
 #安装完之后的操作
 #mysql的my.conf可以提取出来处理一下
+
+#检查有没mysql才进行以下操作
+
 wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum install mysql-community-server
