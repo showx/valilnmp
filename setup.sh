@@ -30,6 +30,7 @@ if [ ! -d "/webwww/" ];then
     mkdir /webwww
     mkdir /show
     mkdir /show/node_module
+    mkdir /show/nginx_module
     #安装文件都放这
     mkdir /show/install
 fi
@@ -170,9 +171,9 @@ function php7()
 
     #libiconv等包最好自行编译安装
     #http://www.gnu.org/software/libiconv/      /usr/local/lib
-    wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-    tar zxvf libiconv-1.15.tar.gz -C /show/install/
     if [ ! -d /show/install/libiconv-1.15 ];then
+        wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+        tar zxvf libiconv-1.15.tar.gz -C /show/install/
         cd libiconv-1.15
         ./configure
         make && make install
