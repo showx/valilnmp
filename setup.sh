@@ -215,7 +215,9 @@ echo '是否复制配置文件';
 read -p "input (y/n): " conf_y
 if [ $conf_y == 'y' ];then
     echo '生成配置文件';
-    cp -rf ./conf_file/nginxconf/ /webwww/nginx/
+    mv /webwww/nginx/nginx.conf /webwww/nginx/nginx.bak.conf
+    cp -rf ./conf_file/nginxconf/nginx.conf /webwww/nginx/nginx.conf
+    cp -rf ./conf_file/nginxconf/show/ /webwww/nginx/
     #总体配置不区分版本
     cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
     cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
