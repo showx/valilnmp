@@ -120,6 +120,10 @@ function nginx()
         wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
         tar zxvf v0.3.0.tar.gz -C /show/nginx_module/
     fi
+    if [ ! -d /show/nginx_module/echo-nginx-module-0.61 ];then
+        wget https://github.com/openresty/echo-nginx-module/archive/v0.61.tar.gz
+        tar zxvf v0.61.tar.gz -C /show/nginx_module/
+    fi
 
 	#下载nginx
 	#wget http://nginx.org/download/nginx-1.10.3.tar.gz
@@ -127,6 +131,7 @@ function nginx()
 	tar zxvf nginx-1.13.12.tar.gz
 	mv nginx-1.13.12 nginx
 	cd nginx
+
 	./configure --prefix=/usr --sbin-path=/usr/sbin \
 	--user=www-data --group=www-data \
 	--conf-path=/webwww/nginx/nginx.conf \
@@ -140,7 +145,8 @@ function nginx()
     --with-http_realip_module \
     --with-http_ssl_module \
     --add-module=/show/nginx_module/lua-nginx-module-0.10.13 \
-    --add-module=/show/nginx_module/ngx_devel_kit-0.3.0
+    --add-module=/show/nginx_module/ngx_devel_kit-0.3.0 \
+    --add-module=/show/nginx_module/echo-nginx-module-0.61
 
     #	--with-pcre=$pcre_dir \
 

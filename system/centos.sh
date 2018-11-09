@@ -113,7 +113,13 @@ make && make install
 #/usr/local/librabbitmq
 
 
+#usr/bin/postgres -D /var/lib/pgsql/data -p 5432
+#sudo -u postgres /usr/local/postgres/bin/pg_ctl -D /data/database/postgres start
 
+#/usr/local/ssdb/ssdb-server -s start -d /usr/local/ssdb/ssdb.conf
 
+#ssdb 导入导出
+#export backup.ssdb
+#import backup.ssdb
 
 
