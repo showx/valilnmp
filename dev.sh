@@ -142,3 +142,19 @@ make clean && make && sudo make install
 #安装java环境 jdk
 #rpm -ivh jdk-8u171-linux-x64.rpm
 
+#进程监控
+yum install supervisor
+supervisorctl status
+supervisorctl stop all
+supervisorctl start all
+
+#confd安装
+wget https://github.com/kelseyhightower/confd/releases/download/v0.15.0/confd-0.15.0-linux-amd64
+mv confd-0.15.0-linux-amd64 /usr/sbin/confd
+chmod +x /usr/sbin/confd
+
+#etcd的安装
+yum install etcd -y
+
+
+
