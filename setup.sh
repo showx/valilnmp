@@ -164,7 +164,15 @@ echo '是否安装nginx';
 read -p "input (y/n): " nginx_y
 if [ $nginx_y == 'y' ]; then
 	nginx
-	echo '成功安装完nginx';
+	echo '成功安装完nginx!!';
+    echo '是否复制nginx配置文件';
+    read -p "input (y/n): " conf_y
+    if [ $conf_y == 'y' ];then
+        echo '生成nginx配置文件';
+        mv /webwww/nginx/nginx.conf /webwww/nginx/nginx.bak.conf
+        cp -rf ./conf_file/nginxconf/nginx.conf /webwww/nginx/nginx.conf
+        cp -rf ./conf_file/nginxconf/show/ /webwww/nginx/
+    fi
 fi
 
 #自动下载配置文件并替换
@@ -215,17 +223,18 @@ echo '是否安装php7';
 read -p "input (y/n): " php7_y
 if [ $php7_y == 'y' ]; then
 	php7
-	echo '成功安装完php7';
+	echo '成功安装完php7!!';
+	echo '是否复制php配置文件';
+    read -p "input (y/n): " conf_y
+    if [ $conf_y == 'y' ];then
+        echo '生成php配置文件';
+        #总体配置不区分版本
+        cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
+        cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
+        cp -rf ./conf_file/phpconf/php-fpm.conf  /webwww/php/$php_version/etc/php-fpm.conf
+    fi
 fi
-echo '是否复制配置文件';
-read -p "input (y/n): " conf_y
-if [ $conf_y == 'y' ];then
-    echo '生成配置文件';
-    mv /webwww/nginx/nginx.conf /webwww/nginx/nginx.bak.conf
-    cp -rf ./conf_file/nginxconf/nginx.conf /webwww/nginx/nginx.conf
-    cp -rf ./conf_file/nginxconf/show/ /webwww/nginx/
-    #总体配置不区分版本
-    cp -rf ./conf_file/phpconf/php.ini  /webwww/php/conf/php.ini
-    cp -rf ./conf_file/phpconf/php-cli.ini  /webwww/php/conf/php-cli.ini
-    cp -rf ./conf_file/phpconf/php-fpm.conf  /webwww/php/$php_version/etc/php-fpm.conf
-fi
+
+
+
+
