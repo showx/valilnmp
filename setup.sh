@@ -7,6 +7,10 @@
 #如果没www-data账号，先添加, 但要有超管权限
 echo '============是否进行搭建开发环境============';
 read -p "input (y/n): " setup
+if [ -z $setup ];then
+    echo 'exit';
+    exit;
+fi
 if [ $setup != 'y' ]; then
 	echo '已退出安装';
 	exit
@@ -14,9 +18,23 @@ fi
 if [ $UID != 0 ]; then
 	echo '用户id为:'$UID'非root，可能有问题';
 fi
+echo "使用的账号[1.www-data 2.www]";
+read -p "input (1|2): " userconf
 #useradd -d /webwww -g www-data -s /bin/sh www-data
-user=www-data
-group=www-data
+if [ -n $userconf ];then
+    userconf=1;
+fi
+if [[ -z $userconf || $userconf -eq '1' ]];then
+    user=www-data
+    group=www-data
+fi
+if [ $userconf -eq '2' ];then
+    user=www
+    group=www
+fi
+echo "选择的组和用户"
+echo "user:"$user;
+echo "group:"$group;
 egrep "^$group" /etc/group >& /dev/null
 if [ $? -ne 0 ]
 then
