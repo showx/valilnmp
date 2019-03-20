@@ -21,10 +21,10 @@ fi
 echo "使用的账号[1.www-data 2.www]";
 read -p "input (1|2): " userconf
 #useradd -d /webwww -g www-data -s /bin/sh www-data
-if [ -n $userconf ];then
+if [ -z $userconf ];then
     userconf=1;
 fi
-if [[ -z $userconf || $userconf -eq '1' ]];then
+if [[ $userconf -eq '1' ]];then
     user=www-data
     group=www-data
 fi
