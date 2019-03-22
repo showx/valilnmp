@@ -206,10 +206,11 @@ function php7()
     if [ ! -d /show/install/libiconv-1.15 ];then
         wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
         tar zxvf libiconv-1.15.tar.gz -C /show/install/
-        cd libiconv-1.15
+        cd /show/install/libiconv-1.15
         ./configure
         make && make install
-        cd ../
+        #返回上次目录
+        cd -
     fi
 
     #从指定服务器下载指定php配置文件
