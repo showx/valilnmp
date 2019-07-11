@@ -156,5 +156,6 @@ chmod +x /usr/sbin/confd
 #etcd的安装
 yum install etcd -y
 
-
-
+#默认要安装好composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
