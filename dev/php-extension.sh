@@ -10,6 +10,9 @@ pecl install yar
 #php redis
 pecl install redis
 
+#php yconf
+pecl install yconf
+
 #安装php swoole扩展
 #注：http2和hiredis要安装有
 curl -o ./tmp/swoole.tar.gz https://github.com/swoole/swoole-src/archive/master.tar.gz -L && \
