@@ -1,0 +1,8 @@
+filebeat.prospectors:
+- type: log
+   paths:
+      - /var/log/system.log  # 指定需要收集的日志文件的路径
+fields:
+   indexname: systemlog # 这里填写项目名称，对应index => "%{[fields][indexname]}-%{+YYYY.MM.dd}"
+output.logstash:
+  hosts: ["172.18.0.12:9200"]
