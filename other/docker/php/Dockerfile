@@ -1,6 +1,6 @@
 FROM php:7.1.4
 MAINTAINER showx<9448923@qq.com>
-CMD echo "start php"
+# CMD echo "start php"
 
 RUN usermod -u 1000 www-data
 

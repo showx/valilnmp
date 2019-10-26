@@ -7,12 +7,13 @@ docker pull elasticsearch:5.5.0
 docker pull kibana:5.5.0
 docker pull docker.elastic.co/beats/filebeat:5.5.0
 docker pull logstash:5.5.0
-
+docker pull nginx:1.13.12
 
 # 查看网络 docker network ls
 #设置网络
 docker network create --subnet=172.18.0.0/16 mynetwork
 docker run -it -v /code:/webwww --name codedata centos:7.3.1611
+#docker run -it -d -v /webwww:/webwww -v /webwww/nginxconf:/etc/nginx/conf.d -p 80:80 --name nginx nginx:1.13.12
 docker run -it -d --volumes-from codedata --network mynetwork --ip 172.18.0.2 -p 80:80 --name nginx nginx:me
 docker run -it -d --volumes-from codedata --network mynetwork --ip 172.18.0.3 --name php-fpm php:7.2-fpm
 docker run -it -d --volumes-from codedata  --network mynetwork --ip 172.18.0.4 -p 5432:5432 --name postgres postgres:9.6.11
@@ -67,6 +68,7 @@ docker run -it -d -p 5044:5044 \
 #docker commit container [repository:tag]
 
 #偶尔用到的命令
+# apt-get update
 # apt-get install make
 # apt-get install procps
 # apt-get install vim
