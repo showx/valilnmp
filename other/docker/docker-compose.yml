@@ -1,36 +1,65 @@
+version: '2'
+
+services:
 # nginx
-nginx:
-    build: ./nginx
-    ports:
-        - "80:80"
-        - "443:443"
-    links:
-        - php7
-    volumes:
-        - /e/data/www:/usr/local/nginx/html
-    restart: always
+    nginx:
+        # build: ./nginx
+        image: show/nginx:1.13.12
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            # - mynetwork
+            mynetwork:
+                ipv4_address: 172.20.0.2
+        volumes:
+            # - codedata
+            - /Users/pengyongsheng/code:/webwww
+        restart: always
 
-# php7
-php7:
-    build: ./php
-    ports:
-        - "9000:9000"
-    links:
-        - mysql
-    volumes:
-        - /e/lnmp/valilnmp/data/php.ini:/usr/local/php/lib/php.ini:ro
-    restart: always
+    # php7
+    php7:
+        # build: ./php
+        image: show/php-fpm:7.2
+        container_name: php-fpm
+        ports:
+            - "9000:9000"
+            - "19001:19001"
+            - "8080:8080"
+        networks:
+            # - mynetwork
+            mynetwork:
+                ipv4_address: 172.20.0.3
+        volumes:
+            # - codedata
+            - /Users/pengyongsheng/code:/webwww    
+        restart: always
+    # mysql
+    mysql:
+        # build: ./mysql
+        image: show/mysql:5.6
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_ROOT_PASSWORD=root
+        networks:
+            # - mynetwork
+            mynetwork:
+                ipv4_address: 172.20.0.7
+        volumes:
+            # - codedata
+            - /Users/pengyongsheng/code/mysql:/var/lib/mysql
+            # - ./mysql/data:/var/lib/mysql
+        restart: always
 
 
-# mysql
-mysql:
-    build: ./mysql
-    ports:
-        - "3306:3306"
-    environment:
-        - MYSQL_USER=root
-        - MYSQL_PASSWORD=root
-        - MYSQL_ROOT_PASSWORD=root
-    volumes:
-        - ./mysql/data:/var/lib/mysql
-    restart: always
+networks:
+   mynetwork:
+      ipam:
+         config:
+         - subnet: 172.20.0.0/16
+           gateway: 172.20.0.1

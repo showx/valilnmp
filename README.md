@@ -13,7 +13,8 @@ ubuntu与centos操作系统为主
 
 # 使用方法
 运行setup即可安装
-./setup.sh
+- ./setup.sh (常规安装)
+- ./other/docker (推荐安装)
 
 # 整体架构
 ### 文件目录
