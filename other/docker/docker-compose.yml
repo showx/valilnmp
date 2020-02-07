@@ -27,6 +27,8 @@ services:
             - "9000:9000"
             - "19001:19001"
             - "8080:8080"
+            - "9501:9501"
+            - "9502:9502"
         networks:
             # - mynetwork
             mynetwork:
@@ -58,7 +60,7 @@ services:
 
 
 networks:
-   mynetwork:
+   mynetwork:  # docker_mynetwork
       ipam:
          config:
          - subnet: 172.20.0.0/16
