@@ -57,6 +57,15 @@ services:
             - /Users/pengyongsheng/code/mysql:/var/lib/mysql
             # - ./mysql/data:/var/lib/mysql
         restart: always
+    # redis
+    redis:
+        image: redis
+        container_name: redis
+        ports:
+            - "6379:6379"
+        networks: 
+            mynetwork:
+                ipv4_address: 127.20.0.5
 
 
 networks:
